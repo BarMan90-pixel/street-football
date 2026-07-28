@@ -1,8 +1,6 @@
 import streamlit as st
-import streamlit.components.v1 as components
 import random
 import pandas as pd
-import json
 
 # Настройка страницы
 st.set_page_config(
@@ -190,7 +188,7 @@ if "group_scores" not in st.session_state:
 tab1, tab2, tab3 = st.tabs(["🎲 Жеребьевка", "📊 Групповой этап", "🏆 Плей-офф"])
 
 # ==========================================
-# 1. ЖЕРЕБЬЕВКА И DRAG-AND-DROP ГРУППЫ
+# 1. ЖЕРЕБЬЕВКА И СТАБИЛЬНАЯ СМЕНА ГРУПП
 # ==========================================
 with tab1:
     st.header("Список участников")
@@ -220,171 +218,28 @@ with tab1:
 
     if st.session_state.groups:
         st.markdown("---")
-        st.subheader("🖐 Интерактивное распределение")
-        st.caption("Зажмите игрока мышью и перетащите в нужную группу:")
+        st.subheader("🛠 Ручная корректировка групп")
+        st.caption("Выберите новую группу для любого игрока, если нужно изменить распределение:")
 
-        # HTML/JS Drag-and-Drop (Светлый стиль)
-        groups_json = json.dumps(st.session_state.groups, ensure_ascii=False)
+        group_names = list(st.session_state.groups.keys())
         
-        dnd_html = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Inter:wght@600;700&display=swap');
-                body {{
-                    font-family: 'Inter', sans-serif;
-                    background-color: transparent;
-                    margin: 0;
-                    padding: 0;
-                }}
-                .container {{
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 14px;
-                }}
-                .group-box {{
-                    background: #FFFFFF;
-                    border: 1px solid #E2E8F0;
-                    border-radius: 14px;
-                    padding: 14px;
-                    min-height: 170px;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                    transition: border-color 0.2s;
-                }}
-                .group-title {{
-                    font-family: 'Montserrat', sans-serif;
-                    font-size: 16px;
-                    font-weight: 800;
-                    color: #FF3333;
-                    margin-bottom: 10px;
-                    border-bottom: 2px solid #F1F5F9;
-                    padding-bottom: 6px;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                }}
-                .player-card {{
-                    background-color: #F8FAFC;
-                    color: #0F172A !important;
-                    font-weight: 700;
-                    font-size: 14px;
-                    padding: 10px 14px;
-                    margin-bottom: 8px;
-                    border-radius: 10px;
-                    border: 1px solid #E2E8F0;
-                    cursor: grab;
-                    user-select: none;
-                    transition: all 0.2s ease;
-                }}
-                .player-card:hover {{
-                    background-color: #FFF5F5;
-                    border-color: #FF3333;
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 12px rgba(255, 51, 51, 0.15);
-                }}
-                .player-card:active {{
-                    cursor: grabbing;
-                    background-color: #FF3333;
-                    color: #FFFFFF !important;
-                }}
-                .drag-over {{
-                    background-color: #FFF0F0 !important;
-                    border: 2px dashed #FF3333 !important;
-                }}
-            </style>
-        </head>
-        <body>
-            <div class="container" id="board"></div>
-
-            <script>
-                let groupsData = {groups_json};
-
-                function renderBoard() {{
-                    const board = document.getElementById('board');
-                    board.innerHTML = '';
-
-                    for (let gName in groupsData) {{
-                        let box = document.createElement('div');
-                        box.className = 'group-box';
-                        box.dataset.group = gName;
-                        box.ondragover = allowDrop;
-                        box.ondragleave = removeDragOver;
-                        box.ondrop = drop;
-
-                        let title = document.createElement('div');
-                        title.className = 'group-title';
-                        title.innerText = gName + ' (' + groupsData[gName].length + ')';
-                        box.appendChild(title);
-
-                        groupsData[gName].forEach((player, idx) => {{
-                            let card = document.createElement('div');
-                            card.className = 'player-card';
-                            card.draggable = true;
-                            card.innerText = (idx + 1) + '. ' + player;
-                            card.dataset.player = player;
-                            card.dataset.fromGroup = gName;
-                            card.ondragstart = drag;
-                            box.appendChild(card);
-                        }});
-
-                        board.appendChild(box);
-                    }}
-                }}
-
-                function allowDrop(ev) {{
-                    ev.preventDefault();
-                    ev.currentTarget.classList.add('drag-over');
-                }}
-
-                function removeDragOver(ev) {{
-                    ev.currentTarget.classList.remove('drag-over');
-                }}
-
-                function drag(ev) {{
-                    ev.dataTransfer.setData("player", ev.target.dataset.player);
-                    ev.dataTransfer.setData("fromGroup", ev.target.dataset.fromGroup);
-                }}
-
-                function drop(ev) {{
-                    ev.preventDefault();
-                    let box = ev.currentTarget;
-                    box.classList.remove('drag-over');
-                    
-                    let targetGroup = box.dataset.group;
-                    let player = ev.dataTransfer.getData("player");
-                    let fromGroup = ev.dataTransfer.getData("fromGroup");
-
-                    if (fromGroup && targetGroup && fromGroup !== targetGroup) {{
-                        let idx = groupsData[fromGroup].indexOf(player);
-                        if (idx > -1) {{
-                            groupsData[fromGroup].splice(idx, 1);
-                            groupsData[targetGroup].push(player);
-                            renderBoard();
-                            
-                            window.parent.postMessage({{
-                                type: 'streamlit:setComponentValue',
-                                value: JSON.stringify(groupsData)
-                            }}, '*');
-                        }}
-                    }}
-                }}
-
-                renderBoard();
-            </script>
-        </body>
-        </html>
-        """
-        
-        updated_groups_str = components.html(dnd_html, height=450)
-        
-        if updated_groups_str and isinstance(updated_groups_str, str):
-            try:
-                new_groups = json.loads(updated_groups_str)
-                if new_groups != st.session_state.groups:
-                    st.session_state.groups = new_groups
-                    st.rerun()
-            except:
-                pass
+        # Перебор каждого игрока и возможность изменить его группу
+        for player in st.session_state.players:
+            # Находим текущую группу игрока
+            current_group = next((g for g, p_list in st.session_state.groups.items() if player in p_list), group_names[0])
+            
+            new_group = st.selectbox(
+                f"Игрок: {player}",
+                options=group_names,
+                index=group_names.index(current_group),
+                key=f"select_{player}"
+            )
+            
+            # Если выбранная группа отличается от текущей — переносим игрока
+            if new_group != current_group:
+                st.session_state.groups[current_group].remove(player)
+                st.session_state.groups[new_group].append(player)
+                st.rerun()
 
         st.markdown("---")
         st.subheader("Состав групп (Итоговый)")
