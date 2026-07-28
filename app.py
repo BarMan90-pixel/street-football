@@ -35,17 +35,13 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Подключение шрифтов с засечками (Playfair Display & Lora) и светлого фона в уличном стиле
+# Однотонный светлый фон с тенями и шрифты с засечками
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,700..900;1,700..900&display=swap');
 
         .stApp {
-            background-color: #EAECEF;
-            background-image: radial-gradient(#CBD5E1 1px, transparent 1px), radial-gradient(#CBD5E1 1px, #EAECEF 1px);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
-            background-attachment: fixed;
+            background-color: #F3F4F6;
             color: #1E293B;
             font-family: 'Lora', serif;
         }
@@ -60,7 +56,7 @@ st.markdown("""
             text-align: center;
             margin-top: 10px !important;
             margin-bottom: 30px !important;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
         }
         
         h2, h3, .stHeader {
@@ -83,12 +79,12 @@ st.markdown("""
             font-size: 15px !important;
         }
 
-        /* Поля ввода */
+        /* Поля ввода с мягкими тенями */
         div[data-baseweb="textarea"] {
-            background-color: rgba(255, 255, 255, 0.92) !important;
+            background-color: #FFFFFF !important;
             border-radius: 12px !important;
-            border: 1px solid #CBD5E1 !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid #E2E8F0 !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
         }
         div[data-baseweb="textarea"] textarea {
             color: #0F172A !important;
@@ -101,9 +97,10 @@ st.markdown("""
         }
 
         div[data-baseweb="input"] {
-            background-color: rgba(255, 255, 255, 0.92) !important;
+            background-color: #FFFFFF !important;
             border-radius: 10px !important;
-            border: 1px solid #CBD5E1 !important;
+            border: 1px solid #E2E8F0 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
         }
         div[data-baseweb="input"] input {
             color: #0F172A !important;
@@ -111,19 +108,19 @@ st.markdown("""
             font-family: 'Lora', serif !important;
         }
 
-        /* Контейнеры-экспандеры */
+        /* Контейнеры-экспандеры с тенью */
         div[data-testid="stExpander"] {
-            background: rgba(255, 255, 255, 0.9) !important;
-            border: 1px solid #CBD5E1 !important;
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
             border-radius: 14px !important;
             margin-bottom: 14px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03) !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
         }
         div[data-testid="stExpander"] * {
             color: #1E293B !important;
         }
 
-        /* Кнопки */
+        /* Кнопки с глубокой тенью */
         .stButton>button {
             width: 100%;
             border-radius: 12px;
@@ -136,24 +133,24 @@ st.markdown("""
             background: #1E293B !important;
             color: #FFFFFF !important;
             border: none !important;
-            box-shadow: 0 4px 15px rgba(30, 41, 59, 0.2);
+            box-shadow: 0 6px 20px rgba(30, 41, 59, 0.25);
             transition: all 0.2s ease;
             cursor: pointer;
         }
         
         .stButton>button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(30, 41, 59, 0.3);
+            box-shadow: 0 8px 25px rgba(30, 41, 59, 0.35);
             background: #0F172A !important;
         }
 
-        /* Датафреймы */
+        /* Датафреймы с тенью */
         div[data-testid="stDataFrame"] {
-            background-color: rgba(255, 255, 255, 0.92) !important;
+            background-color: #FFFFFF !important;
             border-radius: 12px !important;
-            border: 1px solid #CBD5E1 !important;
+            border: 1px solid #E2E8F0 !important;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
         }
         div[data-testid="stDataFrame"] * {
             color: #1E293B !important;
@@ -183,7 +180,7 @@ st.markdown("""
         }
 
         hr {
-            border-color: #CBD5E1 !important;
+            border-color: #E2E8F0 !important;
             margin: 25px 0 !important;
         }
 
