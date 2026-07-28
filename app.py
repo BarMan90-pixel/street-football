@@ -188,7 +188,7 @@ if "group_scores" not in st.session_state:
 tab1, tab2, tab3 = st.tabs(["🎲 Жеребьевка", "📊 Групповой этап", "🏆 Плей-офф"])
 
 # ==========================================
-# 1. ЖЕРЕБЬЕВКА И СТАБИЛЬНАЯ СМЕНА ГРУПП
+# 1. ЖЕРЕБЬЕВКА И РУЧНАЯ КОРРЕКТИРОВКА
 # ==========================================
 with tab1:
     st.header("Список участников")
@@ -223,9 +223,7 @@ with tab1:
 
         group_names = list(st.session_state.groups.keys())
         
-        # Перебор каждого игрока и возможность изменить его группу
         for player in st.session_state.players:
-            # Находим текущую группу игрока
             current_group = next((g for g, p_list in st.session_state.groups.items() if player in p_list), group_names[0])
             
             new_group = st.selectbox(
@@ -235,7 +233,6 @@ with tab1:
                 key=f"select_{player}"
             )
             
-            # Если выбранная группа отличается от текущей — переносим игрока
             if new_group != current_group:
                 st.session_state.groups[current_group].remove(player)
                 st.session_state.groups[new_group].append(player)
@@ -248,7 +245,19 @@ with tab1:
                 for idx, pl in enumerate(g_players, 1):
                     st.write(f"**№{idx}.** <span style='color:#0F172A;'>{pl}</span>", unsafe_allow_html=True)
 
-# Вспомогательная функция построения ШАХМАТКИ
+# Функция генерации туров для группы из 4 участников
+def get_group_rounds(players):
+    if len(players) < 4:
+        return []
+    p = players
+    # 1 - p[0], 2 - p[1], 3 - p[2], 4 - p[3]
+    return [
+        {"tour": 1, "matches": [(p[0], p[3]), (p[1], p[2])]}, # 1-4, 2-3
+        {"tour": 2, "matches": [(p[0], p[2]), (p[3], p[1])]}, # 1-3, 4-2
+        {"tour": 3, "matches": [(p[0], p[1]), (p[2], p[3])]}  # 1-2, 3-4
+    ]
+
+# Расчет шахматки и тур таблицы
 def calculate_cross_table(g_name, players):
     n = len(players)
     stats = {p: {"И": 0, "В": 0, "Н": 0, "П": 0, "МЗ": 0, "МП": 0, "Очки": 0} for p in players}
@@ -260,11 +269,20 @@ def calculate_cross_table(g_name, players):
     for i in range(n):
         for j in range(i + 1, n):
             p1, p2 = players[i], players[j]
-            key = f"{g_name}_{p1}_vs_{p2}"
+            key1 = f"{g_name}_{p1}_vs_{p2}"
+            key2 = f"{g_name}_{p2}_vs_{p1}"
+            
+            key = key1 if key1 in st.session_state.group_scores else key2
+            
             if key in st.session_state.group_scores:
                 data = st.session_state.group_scores[key]
                 s1, s2 = data.get("s1", 0), data.get("s2", 0)
                 panna1, panna2 = data.get("panna1", False), data.get("panna2", False)
+                
+                # Приводим к порядку (p1, p2)
+                if key == key2:
+                    s1, s2 = s2, s1
+                    panna1, panna2 = panna2, panna1
                 
                 txt1 = f"{s1}:{s2}" + (" 🔴" if panna1 else "")
                 txt2 = f"{s2}:{s1}" + (" 🔴" if panna2 else "")
@@ -312,40 +330,57 @@ def calculate_cross_table(g_name, players):
     return df_cross, df_standings
 
 # ==========================================
-# 2. ГРУППОВОЙ ЭТАП
+# 2. ГРУППОВОЙ ЭТАП (КАЛЕНДАРЬ ПО ТУРАМ)
 # ==========================================
 with tab2:
     if not st.session_state.groups:
         st.info("Проведите жеребьевку на первой вкладке.")
     else:
+        # Отображение легенды посева (1..4)
+        st.subheader("📋 Состав и номера игроков в группах")
+        for g_name, g_players in st.session_state.groups.items():
+            num_legend = ", ".join([f"**{g_name[7:]}{i+1}**: {p}" for i, p in enumerate(g_players)])
+            st.markdown(f"**{g_name}:** {num_legend}")
+            
+        st.markdown("---")
+        
+        # Ввод результатов по ТУРАМ
+        st.header("📅 Календарь матчей по турам")
+        
+        for tour_num in range(1, 4):
+            with st.expander(f"📌 ТУР {tour_num}", expanded=True):
+                for g_name, g_players in st.session_state.groups.items():
+                    if len(g_players) == 4:
+                        rounds = get_group_rounds(g_players)
+                        tour_data = rounds[tour_num - 1]
+                        g_code = g_name[7:] # Буква группы (А, Б, В, Г)
+                        
+                        for p1, p2 in tour_data["matches"]:
+                            i1 = g_players.index(p1) + 1
+                            i2 = g_players.index(p2) + 1
+                            key = f"{g_name}_{p1}_vs_{p2}"
+                            
+                            st.markdown(f"**[{g_name}]** {i1}{g_code} **{p1}** vs {i2}{g_code} **{p2}**")
+                            c1, c2 = st.columns(2)
+                            s1 = c1.number_input(f"Голы {p1}", min_value=0, value=0, key=f"{key}_s1")
+                            s2 = c2.number_input(f"Голы {p2}", min_value=0, value=0, key=f"{key}_s2")
+                            
+                            cp1, cp2 = st.columns(2)
+                            panna1 = cp1.checkbox(f"🔴 ПАННА от {p1}", key=f"{key}_panna1")
+                            panna2 = cp2.checkbox(f"🔴 ПАННА от {p2}", key=f"{key}_panna2")
+                            
+                            st.session_state.group_scores[key] = {
+                                "s1": s1, "s2": s2, 
+                                "panna1": panna1, "panna2": panna2
+                            }
+                            st.markdown("<hr style='margin:10px 0 !important;'>", unsafe_allow_html=True)
+
+        st.markdown("---")
+        st.header("📊 Турнирные таблицы")
+        
         standings_dict = {}
         for g_name, g_players in st.session_state.groups.items():
             st.subheader(f"📌 {g_name}")
-            
-            num_legend = ", ".join([f"№{i+1} — {p}" for i, p in enumerate(g_players)])
-            st.caption(f"Участники: {num_legend}")
-            
-            with st.expander("📝 Ввод результатов матчей", expanded=False):
-                for i in range(len(g_players)):
-                    for j in range(i + 1, len(g_players)):
-                        p1, p2 = g_players[i], g_players[j]
-                        key = f"{g_name}_{p1}_vs_{p2}"
-                        
-                        st.markdown(f"**№{i+1} <span style='color:#0F172A;'>{p1}</span>** vs **№{j+1} <span style='color:#0F172A;'>{p2}</span>**", unsafe_allow_html=True)
-                        c1, c2 = st.columns(2)
-                        s1 = c1.number_input(f"Голы {p1}", min_value=0, value=0, key=f"{key}_s1")
-                        s2 = c2.number_input(f"Голы {p2}", min_value=0, value=0, key=f"{key}_s2")
-                        
-                        cp1, cp2 = st.columns(2)
-                        panna1 = cp1.checkbox(f"🔴 ПАННА от {p1}", key=f"{key}_panna1")
-                        panna2 = cp2.checkbox(f"🔴 ПАННА от {p2}", key=f"{key}_panna2")
-                        
-                        st.session_state.group_scores[key] = {
-                            "s1": s1, "s2": s2, 
-                            "panna1": panna1, "panna2": panna2
-                        }
-                        st.markdown("---")
-
             df_cross, df_standing = calculate_cross_table(g_name, g_players)
             st.dataframe(
                 df_cross, 
@@ -376,7 +411,7 @@ with tab3:
             p2G = st.session_state.standings["Группа Г"]["Игрок"].iloc[1]
             
             st.subheader("🥊 1/4 Финала")
-            # НОВОЕ РАСПРЕДЕЛЕНИЕ ПАР ПЛЕЙ-ОФФ
+            # СХЕМА ПЛЕЙ-ОФФ: 1А-2Г, 1В-2Б, 1Б-2В, 1Г-2А
             qf_pairs = [
                 ("1/4 #1 (1А vs 2Г)", p1A, p2G),
                 ("1/4 #2 (1В vs 2Б)", p1V, p2B),
