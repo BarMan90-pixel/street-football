@@ -35,87 +35,75 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Светлая тема с современным геометрическим орнаментом, скругленными рамками и SVG-иконками
+# Подключение современных шрифтов и установка вашей картинки на фон
 st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
         .stApp {
-            background-color: #F8FAFC;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(239, 68, 68, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.04) 0%, transparent 40%),
-                linear-gradient(135deg, rgba(241, 245, 249, 0.6) 25%, transparent 25%),
-                linear-gradient(225deg, rgba(241, 245, 249, 0.6) 25%, transparent 25%),
-                linear-gradient(45deg, rgba(241, 245, 249, 0.6) 25%, transparent 25%),
-                linear-gradient(315deg, rgba(241, 245, 249, 0.6) 25%, transparent 25%);
-            background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px, 60px 60px, 60px 60px;
-            background-position: 0 0, 0 0, 0 0, 0 0, 30px 30px, 30px 30px;
+            background-color: #A3D2C2;
+            background-image: linear-gradient(to bottom, #A3D2C2 82%, #228B45 82%);
+            background-size: 100% 100%;
+            background-attachment: fixed;
             color: #0F172A;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         h1 {
-            font-family: 'Montserrat', sans-serif !important;
+            font-family: 'Outfit', sans-serif !important;
             font-weight: 900 !important;
-            font-size: 2.3rem !important;
-            font-style: italic;
+            font-size: 2.4rem !important;
             text-transform: uppercase;
-            letter-spacing: 1.5px !important;
-            background: linear-gradient(135deg, #0F172A 0%, #334155 60%, #EF4444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px !important;
+            color: #0F172A;
             text-align: center;
             margin-top: 10px !important;
             margin-bottom: 30px !important;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
         }
         
         h2, h3, .stHeader {
-            font-family: 'Montserrat', sans-serif !important;
-            font-weight: 900 !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-weight: 700 !important;
             text-transform: uppercase;
-            letter-spacing: 1px !important;
+            letter-spacing: 1.2px !important;
             color: #0F172A !important;
-            font-size: 1.4rem !important;
-            border-left: 4px solid #EF4444;
+            font-size: 1.35rem !important;
+            border-left: 4px solid #1E293B;
             padding-left: 12px;
             margin-top: 25px !important;
             margin-bottom: 15px !important;
         }
 
         label, .stCheckbox label span, .stNumberInput label, .stSelectbox label, p {
-            color: #475569 !important;
-            font-family: 'Inter', sans-serif !important;
+            color: #1E293B !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 600 !important;
             font-size: 14px !important;
         }
 
         /* Поля ввода */
         div[data-baseweb="textarea"] {
-            background-color: #FFFFFF !important;
+            background-color: rgba(255, 255, 255, 0.9) !important;
             border-radius: 16px !important;
-            border: 1px solid #E2E8F0 !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(8px);
         }
         div[data-baseweb="textarea"] textarea {
             color: #0F172A !important;
             -webkit-text-fill-color: #0F172A !important;
             background-color: transparent !important;
-            font-family: 'Inter', sans-serif !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 600 !important;
             font-size: 15px !important;
             padding: 14px !important;
         }
-        div[data-baseweb="textarea"]:focus-within {
-            border-color: #EF4444 !important;
-            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12) !important;
-        }
 
         div[data-baseweb="input"] {
-            background-color: #FFFFFF !important;
+            background-color: rgba(255, 255, 255, 0.9) !important;
             border-radius: 12px !important;
-            border: 1px solid #CBD5E1 !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
         }
         div[data-baseweb="input"] input {
             color: #0F172A !important;
@@ -124,17 +112,12 @@ st.markdown("""
 
         /* Контейнеры-экспандеры */
         div[data-testid="stExpander"] {
-            background: #FFFFFF !important;
-            border: 1px solid #E2E8F0 !important;
+            background: rgba(255, 255, 255, 0.88) !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
             border-radius: 18px !important;
             margin-bottom: 14px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05) !important;
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-        div[data-testid="stExpander"]:hover {
-            border-color: rgba(239, 68, 68, 0.4) !important;
-            box-shadow: 0 12px 30px -5px rgba(239, 68, 68, 0.08) !important;
-            transform: translateY(-1px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+            backdrop-filter: blur(10px);
         }
         div[data-testid="stExpander"] * {
             color: #0F172A !important;
@@ -145,79 +128,74 @@ st.markdown("""
             width: 100%;
             border-radius: 14px;
             height: 3.4em;
-            font-family: 'Montserrat', sans-serif !important;
-            font-weight: 900 !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-weight: 700 !important;
             font-size: 15px !important;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
+            background: #0F172A !important;
             color: #FFFFFF !important;
             border: none !important;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+            transition: all 0.2s ease;
             cursor: pointer;
         }
         
         .stButton>button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
-            background: linear-gradient(135deg, #F87171 0%, #B91C1C 100%) !important;
-        }
-
-        .stButton>button:active {
-            transform: scale(0.97) translateY(1px);
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.35);
+            background: #1E293B !important;
         }
 
         /* Датафреймы */
         div[data-testid="stDataFrame"] {
-            background-color: #FFFFFF !important;
+            background-color: rgba(255, 255, 255, 0.9) !important;
             border-radius: 16px !important;
-            border: 1px solid #E2E8F0 !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
             overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+            backdrop-filter: blur(8px);
         }
         div[data-testid="stDataFrame"] * {
             color: #0F172A !important;
-            font-family: 'Inter', sans-serif !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 600 !important;
         }
 
         /* Навигационные табы */
         button[data-baseweb="tab"] {
-            color: #64748B !important;
-            font-family: 'Montserrat', sans-serif !important;
+            color: #1E293B !important;
+            font-family: 'Outfit', sans-serif !important;
             font-weight: 700 !important;
             font-size: 14px !important;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             padding: 12px 16px !important;
-            transition: color 0.2s ease;
         }
         button[aria-selected="true"] {
-            color: #EF4444 !important;
-            border-bottom: 3px solid #EF4444 !important;
+            color: #0F172A !important;
+            border-bottom: 3px solid #0F172A !important;
         }
 
         .stCaption {
-            color: #64748B !important;
+            color: #334155 !important;
             font-weight: 500 !important;
             font-size: 13px !important;
         }
 
         hr {
-            border-color: #E2E8F0 !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
             margin: 25px 0 !important;
         }
 
-        /* Класс для стилизованных иконок */
+        /* Стилизованные иконки */
         .icon-svg {
             display: inline-block;
             vertical-align: middle;
             width: 18px;
             height: 18px;
             margin-right: 8px;
-            fill: #EF4444;
+            fill: #0F172A;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -229,7 +207,6 @@ icon_calendar = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-
 icon_chart = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>'
 icon_trophy = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-3.001v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>'
 icon_save = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>'
-icon_trash = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>'
 icon_folder = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>'
 
 st.markdown(f"<h1>{icon_ball} ЛИГА УЛИЧНОГО ФУТБОЛА</h1>", unsafe_allow_html=True)
