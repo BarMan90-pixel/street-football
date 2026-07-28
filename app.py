@@ -376,10 +376,11 @@ with tab3:
             p2G = st.session_state.standings["Группа Г"]["Игрок"].iloc[1]
             
             st.subheader("🥊 1/4 Финала")
+            # НОВОЕ РАСПРЕДЕЛЕНИЕ ПАР ПЛЕЙ-ОФФ
             qf_pairs = [
                 ("1/4 #1 (1А vs 2Г)", p1A, p2G),
-                ("1/4 #2 (1Б vs 2В)", p1B, p2V),
-                ("1/4 #3 (1В vs 2Б)", p1V, p2B),
+                ("1/4 #2 (1В vs 2Б)", p1V, p2B),
+                ("1/4 #3 (1Б vs 2В)", p1B, p2V),
                 ("1/4 #4 (1Г vs 2А)", p1G, p2A),
             ]
             
@@ -412,8 +413,8 @@ with tab3:
 
             st.subheader("🔥 1/2 Финала")
             sf_pairs = [
-                ("1/2 #1", qf_winners[0], qf_winners[1]),
-                ("1/2 #2", qf_winners[2], qf_winners[3])
+                ("1/2 #1 (Победитель 1/4 #1 vs Победитель 1/4 #2)", qf_winners[0], qf_winners[1]),
+                ("1/2 #2 (Победитель 1/4 #3 vs Победитель 1/4 #4)", qf_winners[2], qf_winners[3])
             ]
             sf_winners, sf_losers = [], []
             for idx, (title, player1, player2) in enumerate(sf_pairs):
