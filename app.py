@@ -35,17 +35,23 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Ультрасовременный дизайн: скругления, плавные тени, микроанимации и стильный стеккломорфизм
+# Светлая тема с современным геометрическим орнаментом, скругленными рамками и SVG-иконками
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Inter:wght@400;500;600;700&display=swap');
 
         .stApp {
-            background-color: #0B0F19;
+            background-color: #F8FAFC;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(239, 68, 68, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
-            color: #F8FAFC;
+                radial-gradient(circle at 10% 20%, rgba(239, 68, 68, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.04) 0%, transparent 40%),
+                linear-gradient(135deg, rgba(241, 245, 249, 0.6) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(241, 245, 249, 0.6) 25%, transparent 25%),
+                linear-gradient(45deg, rgba(241, 245, 249, 0.6) 25%, transparent 25%),
+                linear-gradient(315deg, rgba(241, 245, 249, 0.6) 25%, transparent 25%);
+            background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px, 60px 60px, 60px 60px;
+            background-position: 0 0, 0 0, 0 0, 0 0, 30px 30px, 30px 30px;
+            color: #0F172A;
             font-family: 'Inter', sans-serif;
         }
 
@@ -56,7 +62,7 @@ st.markdown("""
             font-style: italic;
             text-transform: uppercase;
             letter-spacing: 1.5px !important;
-            background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 60%, #EF4444 100%);
+            background: linear-gradient(135deg, #0F172A 0%, #334155 60%, #EF4444 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-align: center;
@@ -69,7 +75,7 @@ st.markdown("""
             font-weight: 900 !important;
             text-transform: uppercase;
             letter-spacing: 1px !important;
-            color: #F8FAFC !important;
+            color: #0F172A !important;
             font-size: 1.4rem !important;
             border-left: 4px solid #EF4444;
             padding-left: 12px;
@@ -78,23 +84,23 @@ st.markdown("""
         }
 
         label, .stCheckbox label span, .stNumberInput label, .stSelectbox label, p {
-            color: #94A3B8 !important;
+            color: #475569 !important;
             font-family: 'Inter', sans-serif !important;
             font-weight: 600 !important;
             font-size: 14px !important;
         }
 
-        /* Поля ввода и тексты с эффектом мягкого стекла */
+        /* Поля ввода */
         div[data-baseweb="textarea"] {
-            background-color: rgba(30, 41, 59, 0.5) !important;
+            background-color: #FFFFFF !important;
             border-radius: 16px !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            backdrop-filter: blur(12px);
+            border: 1px solid #E2E8F0 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
             transition: all 0.3s ease;
         }
         div[data-baseweb="textarea"] textarea {
-            color: #F8FAFC !important;
-            -webkit-text-fill-color: #F8FAFC !important;
+            color: #0F172A !important;
+            -webkit-text-fill-color: #0F172A !important;
             background-color: transparent !important;
             font-family: 'Inter', sans-serif !important;
             font-weight: 600 !important;
@@ -103,39 +109,38 @@ st.markdown("""
         }
         div[data-baseweb="textarea"]:focus-within {
             border-color: #EF4444 !important;
-            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12) !important;
         }
 
         div[data-baseweb="input"] {
-            background-color: rgba(30, 41, 59, 0.5) !important;
+            background-color: #FFFFFF !important;
             border-radius: 12px !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            backdrop-filter: blur(8px);
+            border: 1px solid #CBD5E1 !important;
         }
         div[data-baseweb="input"] input {
-            color: #F8FAFC !important;
+            color: #0F172A !important;
             font-weight: 600 !important;
         }
 
-        /* Контейнеры-экспандеры с плавной тенью и закруглениями */
+        /* Контейнеры-экспандеры */
         div[data-testid="stExpander"] {
-            background: rgba(15, 23, 42, 0.6) !important;
-            border: 1px solid rgba(255, 255, 255, 0.06) !important;
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
             border-radius: 18px !important;
             margin-bottom: 14px;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
-            backdrop-filter: blur(16px);
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05) !important;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
         div[data-testid="stExpander"]:hover {
-            border-color: rgba(239, 68, 68, 0.3) !important;
+            border-color: rgba(239, 68, 68, 0.4) !important;
+            box-shadow: 0 12px 30px -5px rgba(239, 68, 68, 0.08) !important;
             transform: translateY(-1px);
         }
         div[data-testid="stExpander"] * {
-            color: #F8FAFC !important;
+            color: #0F172A !important;
         }
 
-        /* Кнопки с живой микроанимацией нажатия и градиентом */
+        /* Кнопки */
         .stButton>button {
             width: 100%;
             border-radius: 14px;
@@ -148,32 +153,32 @@ st.markdown("""
             background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
             color: #FFFFFF !important;
             border: none !important;
-            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.35);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
         }
         
         .stButton>button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
             background: linear-gradient(135deg, #F87171 0%, #B91C1C 100%) !important;
         }
 
         .stButton>button:active {
             transform: scale(0.97) translateY(1px);
-            box-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
         }
 
-        /* Датафреймы в лаконичном стиле */
+        /* Датафреймы */
         div[data-testid="stDataFrame"] {
-            background-color: rgba(15, 23, 42, 0.5) !important;
+            background-color: #FFFFFF !important;
             border-radius: 16px !important;
-            border: 1px solid rgba(255, 255, 255, 0.06) !important;
+            border: 1px solid #E2E8F0 !important;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
         }
         div[data-testid="stDataFrame"] * {
-            color: #F8FAFC !important;
+            color: #0F172A !important;
             font-family: 'Inter', sans-serif !important;
             font-weight: 600 !important;
         }
@@ -201,13 +206,33 @@ st.markdown("""
         }
 
         hr {
-            border-color: rgba(255, 255, 255, 0.06) !important;
+            border-color: #E2E8F0 !important;
             margin: 25px 0 !important;
+        }
+
+        /* Класс для стилизованных иконок */
+        .icon-svg {
+            display: inline-block;
+            vertical-align: middle;
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            fill: #EF4444;
         }
     </style>
 """, unsafe_allow_html=True)
 
-st.title("⚽ ЛИГА УЛИЧНОГО ФУТБОЛА")
+# SVG Шаблоны иконок
+icon_ball = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 2.07c3.16.33 5.76 2.3 6.74 5.03h-4.35c-.41-1.35-1.2-2.6-2.39-3.53V4.07zM11 4.07v1.5c-1.19.93-1.98 2.18-2.39 3.53H4.26c.98-2.73 3.58-4.7 6.74-5.03zM4.07 11h4.62c.11 1.01.4 1.98.84 2.86l-3.27 3.27c-1.46-1.54-2.35-3.64-2.19-6.13zM12 20c-1.74 0-3.34-.58-4.64-1.57l3.41-3.41c.42.12.86.18 1.23.18s.81-.06 1.23-.18l3.41 3.41C15.34 19.42 13.74 20 12 20zm5.93-3.87l-3.27-3.27c.44-.88.73-1.85.84-2.86h4.62c.16 2.49-.73 4.59-2.19 6.13z"/></svg>'
+icon_dice = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7.5 18c-.83 0-1.5-.67-1.5-1.5S6.67 15 7.5 15s1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM7.5 9C6.67 9 6 8.33 6 7.5S6.67 6 7.5 6 9 6.67 9 7.5 8.33 9 7.5 9zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0-9c-.83 0-1.5-.67-1.5-1.5S15.67 6 16.5 6s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>'
+icon_calendar = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>'
+icon_chart = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>'
+icon_trophy = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-3.001v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>'
+icon_save = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>'
+icon_trash = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>'
+icon_folder = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>'
+
+st.markdown(f"<h1>{icon_ball} ЛИГА УЛИЧНОГО ФУТБОЛА</h1>", unsafe_allow_html=True)
 
 if "initialized" not in st.session_state:
     st.session_state.players = []
@@ -218,7 +243,7 @@ if "initialized" not in st.session_state:
     st.session_state.initialized = True
 
 with st.sidebar:
-    st.subheader("💾 Управление данными")
+    st.markdown(f"<h3>{icon_save} Управление данными</h3>", unsafe_allow_html=True)
     if st.button("💾 Сохранить турнир"):
         save_data()
         st.success("Данные сохранены!")
@@ -233,13 +258,18 @@ with st.sidebar:
         st.success("Турнир сброшен!")
         st.rerun()
 
-tab1, tab2, tab3, tab4 = st.tabs(["🎲 Жеребьевка", "📅 Календарь", "📊 Группы", "🏆 Результаты"])
+tab1, tab2, tab3, tab4 = st.tabs([
+    "🎲 Жеребьевка", 
+    "📅 Календарь", 
+    "📊 Группы", 
+    "🏆 Результаты"
+])
 
 # ==========================================
 # 1. ЖЕРЕБЬЕВКА С ВЫБОРОМ КОЛИЧЕСТВА ГРУПП
 # ==========================================
 with tab1:
-    st.header("Список участников и настройки")
+    st.markdown(f"<h2>{icon_dice} Список участников и настройки</h2>", unsafe_allow_html=True)
     
     col_set1, col_set2 = st.columns(2)
     num_groups = col_set1.selectbox("Количество групп:", options=[1, 2, 3, 4], index=3)
@@ -275,7 +305,7 @@ with tab1:
 
     if st.session_state.groups:
         st.markdown("---")
-        st.subheader("🛠 Ручная корректировка групп")
+        st.markdown(f"<h3>{icon_folder} Ручная корректировка групп</h3>", unsafe_allow_html=True)
         st.caption("Выберите новую группу для любого игрока, если нужно изменить распределение:")
 
         group_names = list(st.session_state.groups.keys())
@@ -297,11 +327,11 @@ with tab1:
                 st.rerun()
 
         st.markdown("---")
-        st.subheader("Состав групп (Итоговый)")
+        st.markdown(f"<h3>{icon_folder} Состав групп (Итоговый)</h3>", unsafe_allow_html=True)
         for g_name, g_players in st.session_state.groups.items():
-            with st.expander(f"📌 {g_name} ({len(g_players)} чел.)", expanded=True):
+            with st.expander(f"{g_name} ({len(g_players)} чел.)", expanded=True):
                 for idx, pl in enumerate(g_players, 1):
-                    st.write(f"**№{idx}.** <span style='color:#F8FAFC;'>{pl}</span>", unsafe_allow_html=True)
+                    st.write(f"**№{idx}.** <span style='color:#0F172A;'>{pl}</span>", unsafe_allow_html=True)
 
 def get_group_matches(players):
     matches = []
@@ -317,7 +347,7 @@ def calculate_cross_table(g_name, players):
     pair_res = {p1: {p2: "—" for p2 in players} for p1 in players}
     
     for p in players:
-        pair_res[p][p] = "❌"
+        pair_res[p][p] = "—"
         
     for i in range(n):
         for j in range(i + 1, n):
@@ -336,8 +366,8 @@ def calculate_cross_table(g_name, players):
                     s1, s2 = s2, s1
                     panna1, panna2 = panna2, panna1
                 
-                txt1 = f"{s1}:{s2}" + (" 🔴" if panna1 else "")
-                txt2 = f"{s2}:{s1}" + (" 🔴" if panna2 else "")
+                txt1 = f"{s1}:{s2}" + (" [Панна]" if panna1 else "")
+                txt2 = f"{s2}:{s1}" + (" [Панна]" if panna2 else "")
                 pair_res[p1][p2] = txt1
                 pair_res[p2][p1] = txt2
                 
@@ -396,18 +426,18 @@ with tab2:
     if not st.session_state.groups:
         st.info("Проведите жеребьевку на первой вкладке.")
     else:
-        st.subheader("📋 Легенда посева (номера игроков в группах)")
+        st.markdown(f"<h3>{icon_calendar} Легенда посева (номера игроков в группах)</h3>", unsafe_allow_html=True)
         for g_name, g_players in st.session_state.groups.items():
             num_legend = ", ".join([f"**{g_name[7:]}{i+1}**: {p}" for i, p in enumerate(g_players)])
             st.markdown(f"**{g_name}:** {num_legend}")
             
         st.markdown("---")
-        st.header("📅 Матчи группового этапа")
+        st.markdown(f"<h2>{icon_calendar} Матчи группового этапа</h2>", unsafe_allow_html=True)
         
         scores_updated = False
         
         for g_name, g_players in st.session_state.groups.items():
-            with st.expander(f"📌 {g_name} (Матчи)", expanded=True):
+            with st.expander(f"{g_name} (Матчи)", expanded=True):
                 matches = get_group_matches(g_players)
                 g_code = g_name[7:]
                 
@@ -428,8 +458,8 @@ with tab2:
                     s2 = c2.number_input(f"Голы {p2}", min_value=0, value=def_s2, key=f"{key}_s2")
                     
                     cp1, cp2 = st.columns(2)
-                    panna1 = cp1.checkbox(f"🔴 ПАННА от {p1}", value=def_p1, key=f"{key}_panna1")
-                    panna2 = cp2.checkbox(f"🔴 ПАННА от {p2}", value=def_p2, key=f"{key}_panna2")
+                    panna1 = cp1.checkbox(f"ПАННА от {p1}", value=def_p1, key=f"{key}_panna1")
+                    panna2 = cp2.checkbox(f"ПАННА от {p2}", value=def_p2, key=f"{key}_panna2")
                     
                     new_val = {"s1": s1, "s2": s2, "panna1": panna1, "panna2": panna2}
                     if old_data != new_val:
@@ -442,7 +472,7 @@ with tab2:
             save_data()
 
         st.markdown("---")
-        st.header("🥊 Плей-офф")
+        st.markdown(f"<h2>{icon_trophy} Плей-офф</h2>", unsafe_allow_html=True)
         
         standings = get_current_standings()
         num_groups = len(st.session_state.groups)
@@ -457,7 +487,7 @@ with tab2:
 
                 def handle_po_match(match_key, title, player1, player2):
                     st.markdown(f"### {title}")
-                    st.markdown(f"**<span style='color:#F8FAFC;'>{player1}</span>** vs **<span style='color:#F8FAFC;'>{player2}</span>**", unsafe_allow_html=True)
+                    st.markdown(f"**<span style='color:#0F172A;'>{player1}</span>** vs **<span style='color:#0F172A;'>{player2}</span>**", unsafe_allow_html=True)
                     
                     old_po = po_scores.get(match_key, {})
                     c1, c2 = st.columns(2)
@@ -507,7 +537,7 @@ with tab2:
                             qf_winners.append(w)
                             qf_losers.append(l)
 
-                    st.subheader("🔥 1/2 Финала")
+                    st.markdown(f"<h3>{icon_trophy} 1/2 Финала</h3>", unsafe_allow_html=True)
                     sf_pairs = [
                         ("sf_1", "1/2 #1", qf_winners[0], qf_winners[1]),
                         ("sf_2", "1/2 #2", qf_winners[2], qf_winners[3])
@@ -519,10 +549,10 @@ with tab2:
                             sf_winners.append(w)
                             sf_losers.append(l)
 
-                    st.subheader("🏆 Финальная стадия")
-                    with st.expander("🥉 Матч за 3-е место", expanded=True):
+                    st.markdown(f"<h3>{icon_trophy} Финальная стадия</h3>", unsafe_allow_html=True)
+                    with st.expander("Матч за 3-е место", expanded=True):
                         handle_po_match("m3", "Матч за 3-е место", sf_losers[0], sf_losers[1])
-                    with st.expander("👑 ФИНАЛ", expanded=True):
+                    with st.expander("ФИНАЛ", expanded=True):
                         handle_po_match("final", "Финальный матч", sf_winners[0], sf_winners[1])
 
                 elif num_groups == 2:
@@ -531,7 +561,7 @@ with tab2:
                     p1B = standings["Группа Б"]["Игрок"].iloc[0]
                     p2B = standings["Группа Б"]["Игрок"].iloc[1]
 
-                    st.subheader("🔥 1/2 Финала (Перекрестный плей-офф)")
+                    st.markdown(f"<h3>{icon_trophy} 1/2 Финала (Перекрестный плей-офф)</h3>", unsafe_allow_html=True)
                     sf_pairs = [
                         ("sf_1", "1/2 #1 (1А vs 2Б)", p1A, p2B),
                         ("sf_2", "1/2 #2 (1Б vs 2А)", p1B, p2A)
@@ -543,10 +573,10 @@ with tab2:
                             sf_winners.append(w)
                             sf_losers.append(l)
 
-                    st.subheader("🏆 Финальная стадия")
-                    with st.expander("🥉 Матч за 3-е место", expanded=True):
+                    st.markdown(f"<h3>{icon_trophy} Финальная стадия</h3>", unsafe_allow_html=True)
+                    with st.expander("Матч за 3-е место", expanded=True):
                         handle_po_match("m3", "Матч за 3-е место", sf_losers[0], sf_losers[1])
-                    with st.expander("👑 ФИНАЛ", expanded=True):
+                    with st.expander("ФИНАЛ", expanded=True):
                         handle_po_match("final", "Финальный матч", sf_winners[0], sf_winners[1])
 
                 elif num_groups == 3:
@@ -559,7 +589,7 @@ with tab2:
                     second_places.sort(key=lambda x: (x[1], x[2]), reverse=True)
                     best_2nd = second_places[0][0]
 
-                    st.subheader("🔥 1/2 Финала")
+                    st.markdown(f"<h3>{icon_trophy} 1/2 Финала</h3>", unsafe_allow_html=True)
                     sf_pairs = [
                         ("sf_1", "1/2 #1 (1А vs Лучший 2-й)", p1A, best_2nd),
                         ("sf_2", "1/2 #2 (1Б vs 1В)", p1B, p1V)
@@ -571,10 +601,10 @@ with tab2:
                             sf_winners.append(w)
                             sf_losers.append(l)
 
-                    st.subheader("🏆 Финальная стадия")
-                    with st.expander("🥉 Матч за 3-е место", expanded=True):
+                    st.markdown(f"<h3>{icon_trophy} Финальная стадия</h3>", unsafe_allow_html=True)
+                    with st.expander("Матч за 3-е место", expanded=True):
                         handle_po_match("m3", "Матч за 3-е место", sf_losers[0], sf_losers[1])
-                    with st.expander("👑 ФИНАЛ", expanded=True):
+                    with st.expander("ФИНАЛ", expanded=True):
                         handle_po_match("final", "Финальный матч", sf_winners[0], sf_winners[1])
 
                 elif num_groups == 1:
@@ -584,7 +614,7 @@ with tab2:
                     p3 = standings[g_name]["Игрок"].iloc[2]
                     p4 = standings[g_name]["Игрок"].iloc[3]
 
-                    st.subheader("🔥 1/2 Финала")
+                    st.markdown(f"<h3>{icon_trophy} 1/2 Финала</h3>", unsafe_allow_html=True)
                     sf_pairs = [
                         ("sf_1", "1/2 #1 (1-й vs 4-й)", p1, p4),
                         ("sf_2", "1/2 #2 (2-й vs 3-й)", p2, p3)
@@ -596,10 +626,10 @@ with tab2:
                             sf_winners.append(w)
                             sf_losers.append(l)
 
-                    st.subheader("🏆 Финальная стадия")
-                    with st.expander("🥉 Матч за 3-е место", expanded=True):
+                    st.markdown(f"<h3>{icon_trophy} Финальная стадия</h3>", unsafe_allow_html=True)
+                    with st.expander("Матч за 3-е место", expanded=True):
                         handle_po_match("m3", "Матч за 3-е место", sf_losers[0], sf_losers[1])
-                    with st.expander("👑 ФИНАЛ", expanded=True):
+                    with st.expander("ФИНАЛ", expanded=True):
                         handle_po_match("final", "Финальный матч", sf_winners[0], sf_winners[1])
 
             except Exception as e:
@@ -612,9 +642,9 @@ with tab3:
     if not st.session_state.groups:
         st.info("Проведите жеребьевку на первой вкладке.")
     else:
-        st.header("📊 Турнирные таблицы групп")
+        st.markdown(f"<h2>{icon_chart} Турнирные таблицы групп</h2>", unsafe_allow_html=True)
         for g_name, g_players in st.session_state.groups.items():
-            st.subheader(f"📌 {g_name}")
+            st.markdown(f"<h3>{g_name}</h3>", unsafe_allow_html=True)
             df_cross, _ = calculate_cross_table(g_name, g_players)
             st.dataframe(
                 df_cross, 
@@ -635,11 +665,11 @@ with tab4:
         try:
             playoff_points = {p: 0 for p in st.session_state.players}
 
-            st.header("🏆 Пьедестал почета")
-            st.markdown(f"### 🥇 1 МЕСТО: <span style='color:#EF4444;'>Итоги турнира</span>", unsafe_allow_html=True)
+            st.markdown(f"<h2>{icon_trophy} Пьедестал почета</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h3>Итоги турнира</h3>", unsafe_allow_html=True)
 
             st.markdown("---")
-            st.header("📊 Итоговый рейтинг всех участников")
+            st.markdown(f"<h2>{icon_chart} Итоговый рейтинг всех участников</h2>", unsafe_allow_html=True)
             
             group_points_map = {}
             for g_name, df_g in standings.items():
