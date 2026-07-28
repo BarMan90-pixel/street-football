@@ -35,32 +35,33 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+# Ультрасовременный дизайн: скругления, плавные тени, микроанимации и стильный стеккломорфизм
 st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Inter:wght@400;500;600;700&display=swap');
 
         .stApp {
-            background-color: #F8FAFC;
+            background-color: #0B0F19;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(255, 51, 51, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(15, 23, 42, 0.03) 0%, transparent 50%);
-            color: #0F172A;
+                radial-gradient(circle at 10% 20%, rgba(239, 68, 68, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
+            color: #F8FAFC;
             font-family: 'Inter', sans-serif;
         }
 
         h1 {
             font-family: 'Montserrat', sans-serif !important;
             font-weight: 900 !important;
-            font-size: 2.2rem !important;
+            font-size: 2.3rem !important;
             font-style: italic;
             text-transform: uppercase;
             letter-spacing: 1.5px !important;
-            background: linear-gradient(135deg, #0F172A 0%, #334155 60%, #FF3333 100%);
+            background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 60%, #EF4444 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-align: center;
             margin-top: 10px !important;
-            margin-bottom: 25px !important;
+            margin-bottom: 30px !important;
         }
         
         h2, h3, .stHeader {
@@ -68,121 +69,139 @@ st.markdown("""
             font-weight: 900 !important;
             text-transform: uppercase;
             letter-spacing: 1px !important;
-            color: #0F172A !important;
-            font-size: 1.5rem !important;
-            border-left: 4px solid #FF3333;
+            color: #F8FAFC !important;
+            font-size: 1.4rem !important;
+            border-left: 4px solid #EF4444;
             padding-left: 12px;
-            margin-top: 20px !important;
+            margin-top: 25px !important;
             margin-bottom: 15px !important;
         }
 
         label, .stCheckbox label span, .stNumberInput label, .stSelectbox label, p {
-            color: #334155 !important;
+            color: #94A3B8 !important;
             font-family: 'Inter', sans-serif !important;
             font-weight: 600 !important;
             font-size: 14px !important;
         }
 
+        /* Поля ввода и тексты с эффектом мягкого стекла */
         div[data-baseweb="textarea"] {
-            background-color: #FFFFFF !important;
-            border-radius: 12px !important;
-            border: 2px solid #E2E8F0 !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+            background-color: rgba(30, 41, 59, 0.5) !important;
+            border-radius: 16px !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
         }
         div[data-baseweb="textarea"] textarea {
-            color: #0F172A !important;
-            -webkit-text-fill-color: #0F172A !important;
-            background-color: #FFFFFF !important;
+            color: #F8FAFC !important;
+            -webkit-text-fill-color: #F8FAFC !important;
+            background-color: transparent !important;
             font-family: 'Inter', sans-serif !important;
-            font-weight: 700 !important;
+            font-weight: 600 !important;
             font-size: 15px !important;
-            padding: 12px !important;
+            padding: 14px !important;
         }
         div[data-baseweb="textarea"]:focus-within {
-            border-color: #FF3333 !important;
-            box-shadow: 0 0 0 3px rgba(255, 51, 51, 0.2) !important;
+            border-color: #EF4444 !important;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
         }
 
         div[data-baseweb="input"] {
-            background-color: #FFFFFF !important;
-            border-radius: 10px !important;
-            border: 1px solid #CBD5E1 !important;
+            background-color: rgba(30, 41, 59, 0.5) !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(8px);
         }
         div[data-baseweb="input"] input {
-            color: #0F172A !important;
-            font-weight: 700 !important;
+            color: #F8FAFC !important;
+            font-weight: 600 !important;
         }
 
+        /* Контейнеры-экспандеры с плавной тенью и закруглениями */
         div[data-testid="stExpander"] {
-            background: #FFFFFF !important;
-            border: 1px solid #E2E8F0 !important;
-            border-radius: 14px !important;
-            margin-bottom: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05) !important;
-            overflow: hidden;
+            background: rgba(15, 23, 42, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.06) !important;
+            border-radius: 18px !important;
+            margin-bottom: 14px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(16px);
+            transition: transform 0.2s ease, border-color 0.2s ease;
         }
-        
+        div[data-testid="stExpander"]:hover {
+            border-color: rgba(239, 68, 68, 0.3) !important;
+            transform: translateY(-1px);
+        }
         div[data-testid="stExpander"] * {
-            color: #0F172A !important;
+            color: #F8FAFC !important;
         }
 
+        /* Кнопки с живой микроанимацией нажатия и градиентом */
         .stButton>button {
             width: 100%;
-            border-radius: 12px;
+            border-radius: 14px;
             height: 3.4em;
             font-family: 'Montserrat', sans-serif !important;
             font-weight: 900 !important;
-            font-size: 16px !important;
+            font-size: 15px !important;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            background: linear-gradient(135deg, #FF3333 0%, #DC2626 100%) !important;
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
             color: #FFFFFF !important;
             border: none !important;
-            box-shadow: 0 4px 14px rgba(255, 51, 51, 0.3);
-            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.35);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
         
         .stButton>button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 51, 51, 0.45);
-            background: linear-gradient(135deg, #FF4D4D 0%, #B91C1C 100%) !important;
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+            background: linear-gradient(135deg, #F87171 0%, #B91C1C 100%) !important;
         }
 
+        .stButton>button:active {
+            transform: scale(0.97) translateY(1px);
+            box-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Датафреймы в лаконичном стиле */
         div[data-testid="stDataFrame"] {
-            background-color: #FFFFFF !important;
-            border-radius: 12px !important;
-            border: 1px solid #E2E8F0 !important;
+            background-color: rgba(15, 23, 42, 0.5) !important;
+            border-radius: 16px !important;
+            border: 1px solid rgba(255, 255, 255, 0.06) !important;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
         div[data-testid="stDataFrame"] * {
-            color: #0F172A !important;
+            color: #F8FAFC !important;
             font-family: 'Inter', sans-serif !important;
-            font-weight: 700 !important;
+            font-weight: 600 !important;
         }
 
+        /* Навигационные табы */
         button[data-baseweb="tab"] {
             color: #64748B !important;
             font-family: 'Montserrat', sans-serif !important;
             font-weight: 700 !important;
-            font-size: 15px !important;
+            font-size: 14px !important;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 12px 15px !important;
+            padding: 12px 16px !important;
+            transition: color 0.2s ease;
         }
         button[aria-selected="true"] {
-            color: #FF3333 !important;
-            border-bottom: 3px solid #FF3333 !important;
+            color: #EF4444 !important;
+            border-bottom: 3px solid #EF4444 !important;
         }
 
         .stCaption {
             color: #64748B !important;
-            font-weight: 600 !important;
+            font-weight: 500 !important;
             font-size: 13px !important;
         }
 
         hr {
-            border-color: #E2E8F0 !important;
+            border-color: rgba(255, 255, 255, 0.06) !important;
             margin: 25px 0 !important;
         }
     </style>
@@ -223,7 +242,7 @@ with tab1:
     st.header("Список участников и настройки")
     
     col_set1, col_set2 = st.columns(2)
-    num_groups = col_set1.selectbox("Количество групп:", options=[1, 2, 3, 4], index=3) # по умолчанию 4 группы
+    num_groups = col_set1.selectbox("Количество групп:", options=[1, 2, 3, 4], index=3)
     
     default_text = "\n".join(st.session_state.players) if st.session_state.players else "\n".join([f"Игрок {i}" for i in range(1, 13)])
     raw_players = st.text_area(
@@ -282,9 +301,8 @@ with tab1:
         for g_name, g_players in st.session_state.groups.items():
             with st.expander(f"📌 {g_name} ({len(g_players)} чел.)", expanded=True):
                 for idx, pl in enumerate(g_players, 1):
-                    st.write(f"**№{idx}.** <span style='color:#0F172A;'>{pl}</span>", unsafe_allow_html=True)
+                    st.write(f"**№{idx}.** <span style='color:#F8FAFC;'>{pl}</span>", unsafe_allow_html=True)
 
-# Универсальный генератор матчей для группы от 3 до 6 человек (каждый с каждым)
 def get_group_matches(players):
     matches = []
     n = len(players)
@@ -429,7 +447,6 @@ with tab2:
         standings = get_current_standings()
         num_groups = len(st.session_state.groups)
         
-        # Динамическое определение сетки плей-офф в зависимости от числа групп (1, 2, 3 или 4)
         if len(standings) != num_groups or any(len(df) < 2 for df in standings.values()):
             st.info("Завершите матчи в группах, чтобы сформировалась сетка плей-офф.")
         else:
@@ -440,7 +457,7 @@ with tab2:
 
                 def handle_po_match(match_key, title, player1, player2):
                     st.markdown(f"### {title}")
-                    st.markdown(f"**<span style='color:#0F172A;'>{player1}</span>** vs **<span style='color:#0F172A;'>{player2}</span>**", unsafe_allow_html=True)
+                    st.markdown(f"**<span style='color:#F8FAFC;'>{player1}</span>** vs **<span style='color:#F8FAFC;'>{player2}</span>**", unsafe_allow_html=True)
                     
                     old_po = po_scores.get(match_key, {})
                     c1, c2 = st.columns(2)
@@ -467,7 +484,6 @@ with tab2:
 
                 group_names_keys = list(standings.keys())
                 
-                # Логика в зависимости от количества групп
                 if num_groups == 4:
                     p1A = standings["Группа А"]["Игрок"].iloc[0]
                     p2A = standings["Группа А"]["Игрок"].iloc[1]
@@ -537,7 +553,6 @@ with tab2:
                     p1A = standings["Группа А"]["Игрок"].iloc[0]
                     p1B = standings["Группа Б"]["Игрок"].iloc[0]
                     p1V = standings["Группа В"]["Игрок"].iloc[0]
-                    # Лучшие вторые места определяем по очкам среди всех вторых мест
                     second_places = []
                     for g in ["Группа А", "Группа Б", "Группа В"]:
                         second_places.append((standings[g]["Игрок"].iloc[1], standings[g]["Очки"].iloc[1], standings[g]["Разница"].iloc[1]))
@@ -563,7 +578,6 @@ with tab2:
                         handle_po_match("final", "Финальный матч", sf_winners[0], sf_winners[1])
 
                 elif num_groups == 1:
-                    # При 1 группе топ-4 выходят в полуфинал
                     g_name = group_names_keys[0]
                     p1 = standings[g_name]["Игрок"].iloc[0]
                     p2 = standings[g_name]["Игрок"].iloc[1]
@@ -617,31 +631,12 @@ with tab4:
     else:
         standings = get_current_standings()
         po_scores = st.session_state.get("playoff_scores", {})
-        num_groups = len(st.session_state.groups)
         
         try:
             playoff_points = {p: 0 for p in st.session_state.players}
-            first_place, second_place, third_place = "Определяется...", "Определяется...", "Определяется..."
-            
-            # Упрощенный расчет очков плей-офф для итоговой таблицы на основе сыгранных матчей sf и final/m3
-            if "final" in po_scores:
-                d = po_scores["final"]
-                # Восстановим финалистов в зависимости от структуры
-                # Для упрощения вытащим победителей из матчей финала напрямую
-                pass
 
-            # Универсальный сбор очков из полей po_scores
-            for m_key, d in po_scores.items():
-                # Найти участников матча можно через ту же логику, либо через общие очки
-                pass
-
-            # Отображение пьедестала из сохраненных матчей финала и матча за 3 место
-            if "final" in po_scores:
-                f_data = po_scores["final"]
-                # Определим финалистов из сохраненной логики полуфиналов
-                # Для стабильности вывода выведем общую таблицу рейтинга и призеров на базе сохраненных побед
-                st.header("🏆 Пьедестал почета")
-                st.markdown(f"### 🥇 1 МЕСТО: <span style='color:#FF3333;'>Турнир завершается</span>", unsafe_allow_html=True)
+            st.header("🏆 Пьедестал почета")
+            st.markdown(f"### 🥇 1 МЕСТО: <span style='color:#EF4444;'>Итоги турнира</span>", unsafe_allow_html=True)
 
             st.markdown("---")
             st.header("📊 Итоговый рейтинг всех участников")
@@ -677,5 +672,4 @@ with tab4:
             )
 
         except Exception as e:
-            data_file_exists = os.path.exists(DATA_FILE)
             st.info("Заполните результаты группового и финального этапов для формирования итоговой таблицы.")
