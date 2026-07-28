@@ -35,41 +35,42 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Подключение современных шрифтов и установка вашей картинки на фон
+# Подключение шрифтов с засечками (Playfair Display & Lora) и светлого фона в уличном стиле
 st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,700..900;1,700..900&display=swap');
 
         .stApp {
-            background-color: #A3D2C2;
-            background-image: linear-gradient(to bottom, #A3D2C2 82%, #228B45 82%);
-            background-size: 100% 100%;
+            background-color: #EAECEF;
+            background-image: radial-gradient(#CBD5E1 1px, transparent 1px), radial-gradient(#CBD5E1 1px, #EAECEF 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
             background-attachment: fixed;
-            color: #0F172A;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1E293B;
+            font-family: 'Lora', serif;
         }
 
         h1 {
-            font-family: 'Outfit', sans-serif !important;
+            font-family: 'Playfair Display', serif !important;
             font-weight: 900 !important;
-            font-size: 2.4rem !important;
+            font-size: 2.5rem !important;
             text-transform: uppercase;
-            letter-spacing: 2px !important;
+            letter-spacing: 1.5px !important;
             color: #0F172A;
             text-align: center;
             margin-top: 10px !important;
             margin-bottom: 30px !important;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
         
         h2, h3, .stHeader {
-            font-family: 'Outfit', sans-serif !important;
+            font-family: 'Playfair Display', serif !important;
             font-weight: 700 !important;
             text-transform: uppercase;
-            letter-spacing: 1.2px !important;
+            letter-spacing: 1px !important;
             color: #0F172A !important;
-            font-size: 1.35rem !important;
-            border-left: 4px solid #1E293B;
+            font-size: 1.4rem !important;
+            border-left: 4px solid #334155;
             padding-left: 12px;
             margin-top: 25px !important;
             margin-bottom: 15px !important;
@@ -77,97 +78,95 @@ st.markdown("""
 
         label, .stCheckbox label span, .stNumberInput label, .stSelectbox label, p {
             color: #1E293B !important;
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-family: 'Lora', serif !important;
             font-weight: 600 !important;
-            font-size: 14px !important;
+            font-size: 15px !important;
         }
 
         /* Поля ввода */
         div[data-baseweb="textarea"] {
-            background-color: rgba(255, 255, 255, 0.9) !important;
-            border-radius: 16px !important;
-            border: 1px solid rgba(255, 255, 255, 0.6) !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.92) !important;
+            border-radius: 12px !important;
+            border: 1px solid #CBD5E1 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
         div[data-baseweb="textarea"] textarea {
             color: #0F172A !important;
             -webkit-text-fill-color: #0F172A !important;
             background-color: transparent !important;
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-family: 'Lora', serif !important;
             font-weight: 600 !important;
             font-size: 15px !important;
             padding: 14px !important;
         }
 
         div[data-baseweb="input"] {
-            background-color: rgba(255, 255, 255, 0.9) !important;
-            border-radius: 12px !important;
-            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            background-color: rgba(255, 255, 255, 0.92) !important;
+            border-radius: 10px !important;
+            border: 1px solid #CBD5E1 !important;
         }
         div[data-baseweb="input"] input {
             color: #0F172A !important;
             font-weight: 600 !important;
+            font-family: 'Lora', serif !important;
         }
 
         /* Контейнеры-экспандеры */
         div[data-testid="stExpander"] {
-            background: rgba(255, 255, 255, 0.88) !important;
-            border: 1px solid rgba(255, 255, 255, 0.5) !important;
-            border-radius: 18px !important;
+            background: rgba(255, 255, 255, 0.9) !important;
+            border: 1px solid #CBD5E1 !important;
+            border-radius: 14px !important;
             margin-bottom: 14px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03) !important;
         }
         div[data-testid="stExpander"] * {
-            color: #0F172A !important;
+            color: #1E293B !important;
         }
 
         /* Кнопки */
         .stButton>button {
             width: 100%;
-            border-radius: 14px;
+            border-radius: 12px;
             height: 3.4em;
-            font-family: 'Outfit', sans-serif !important;
+            font-family: 'Playfair Display', serif !important;
             font-weight: 700 !important;
             font-size: 15px !important;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            background: #0F172A !important;
+            letter-spacing: 1.2px;
+            background: #1E293B !important;
             color: #FFFFFF !important;
             border: none !important;
-            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+            box-shadow: 0 4px 15px rgba(30, 41, 59, 0.2);
             transition: all 0.2s ease;
             cursor: pointer;
         }
         
         .stButton>button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.35);
-            background: #1E293B !important;
+            box-shadow: 0 6px 20px rgba(30, 41, 59, 0.3);
+            background: #0F172A !important;
         }
 
         /* Датафреймы */
         div[data-testid="stDataFrame"] {
-            background-color: rgba(255, 255, 255, 0.9) !important;
-            border-radius: 16px !important;
-            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            background-color: rgba(255, 255, 255, 0.92) !important;
+            border-radius: 12px !important;
+            border: 1px solid #CBD5E1 !important;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
-            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
         div[data-testid="stDataFrame"] * {
-            color: #0F172A !important;
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            color: #1E293B !important;
+            font-family: 'Lora', serif !important;
             font-weight: 600 !important;
         }
 
         /* Навигационные табы */
         button[data-baseweb="tab"] {
-            color: #1E293B !important;
-            font-family: 'Outfit', sans-serif !important;
+            color: #334155 !important;
+            font-family: 'Playfair Display', serif !important;
             font-weight: 700 !important;
-            font-size: 14px !important;
+            font-size: 15px !important;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             padding: 12px 16px !important;
@@ -178,29 +177,29 @@ st.markdown("""
         }
 
         .stCaption {
-            color: #334155 !important;
+            color: #475569 !important;
             font-weight: 500 !important;
             font-size: 13px !important;
         }
 
         hr {
-            border-color: rgba(255, 255, 255, 0.4) !important;
+            border-color: #CBD5E1 !important;
             margin: 25px 0 !important;
         }
 
-        /* Стилизованные иконки */
+        /* Иконки */
         .icon-svg {
             display: inline-block;
             vertical-align: middle;
             width: 18px;
             height: 18px;
             margin-right: 8px;
-            fill: #0F172A;
+            fill: #1E293B;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# SVG Шаблоны иконок
+# SVG Иконки
 icon_ball = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 2.07c3.16.33 5.76 2.3 6.74 5.03h-4.35c-.41-1.35-1.2-2.6-2.39-3.53V4.07zM11 4.07v1.5c-1.19.93-1.98 2.18-2.39 3.53H4.26c.98-2.73 3.58-4.7 6.74-5.03zM4.07 11h4.62c.11 1.01.4 1.98.84 2.86l-3.27 3.27c-1.46-1.54-2.35-3.64-2.19-6.13zM12 20c-1.74 0-3.34-.58-4.64-1.57l3.41-3.41c.42.12.86.18 1.23.18s.81-.06 1.23-.18l3.41 3.41C15.34 19.42 13.74 20 12 20zm5.93-3.87l-3.27-3.27c.44-.88.73-1.85.84-2.86h4.62c.16 2.49-.73 4.59-2.19 6.13z"/></svg>'
 icon_dice = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7.5 18c-.83 0-1.5-.67-1.5-1.5S6.67 15 7.5 15s1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM7.5 9C6.67 9 6 8.33 6 7.5S6.67 6 7.5 6 9 6.67 9 7.5 8.33 9 7.5 9zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0-9c-.83 0-1.5-.67-1.5-1.5S15.67 6 16.5 6s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>'
 icon_calendar = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>'
@@ -463,7 +462,7 @@ with tab2:
                 po_scores = st.session_state.playoff_scores
 
                 def handle_po_match(match_key, title, player1, player2):
-                    st.markdown(f"### {title}")
+                    st.markdown(f"<h3>{title}</h3>", unsafe_allow_html=True)
                     st.markdown(f"**<span style='color:#0F172A;'>{player1}</span>** vs **<span style='color:#0F172A;'>{player2}</span>**", unsafe_allow_html=True)
                     
                     old_po = po_scores.get(match_key, {})
